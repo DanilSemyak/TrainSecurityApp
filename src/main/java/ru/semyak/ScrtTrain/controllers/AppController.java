@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.semyak.ScrtTrain.models.Application;
+import ru.semyak.ScrtTrain.models.MyUser;
 import ru.semyak.ScrtTrain.services.AppService;
 
 import java.util.List;
@@ -30,6 +31,12 @@ public class AppController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public Application getAppById(@PathVariable int id) {
         return appService.applicationById(id);
+    }
+
+    @PostMapping("/new-user")
+    public String addUser(@RequestBody MyUser user) {
+        appService.addUser(user);
+        return "Пользователь успешно сохранен";
     }
 
 }

@@ -14,13 +14,17 @@ import java.util.Optional;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
+// используется для
+// получения информации о пользователе, прошедшем аутентификацию
 
     @Autowired
     private UserRepository userRepository;
 
     @Override
+    // UserDetails содержит информацию о пользователе после успешной аутентификации
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<MyUser> user = userRepository.findByName(username);
-        return user.map(MyUserDetails::new).orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+        return user.map(MyUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
     }
 }
